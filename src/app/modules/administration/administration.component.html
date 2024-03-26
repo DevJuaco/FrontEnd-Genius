@@ -16,9 +16,46 @@
                 class="text-white origin-left font-medium text-2xl duration-300"
                 [ngClass]="{'scale-0': !isExpanded}"
             >
-                Genius
+                GENIUS POS
             </h1>
         </div>
+
+        <ul class="pt-2">
+            @for (item of Menus; track item.title) {
+                <li 
+                    class="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-light-white rounded-md mt-2"
+                    [ngClass]="{'mt-9': item.spacing}"
+                    >
+                    <span class="text-lg block float-left">
+                        <i [ngClass]="item.icon ? item.icon : 'fa-solid fa-grip'"></i>
+                    </span>
+                    <span 
+                        class="text-base font-medium flex-1 duration-200"
+                        [ngClass]="{'hidden': !isExpanded}"
+                    >{{item.title}}
+                    </span>
+
+                    @if (item.submenu && isExpanded) {
+                        <button 
+                            [ngClass]="{'rotate-180': !isExpandedSubmenu}" 
+                            (click)="toggleSubmenu()"
+                        >
+                            <i class="fa-solid fa-angle-down"></i>
+                        </button>
+                    }
+                </li>
+
+                @if (item.submenu && isExpandedSubmenu && isExpanded ) {
+                    <ul>
+                        @for (submenuItem of item.submenuItems; track submenuItem.title) {
+                            <li class="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-light-white rounded-md">
+                                {{submenuItem.title}}
+                            </li>
+                        }
+                    </ul>
+                }
+            }
+        </ul>
     </div>
     <div class="p-7"><h1 class="text-2xl font-semibold">Home Page</h1></div>
 </div>
