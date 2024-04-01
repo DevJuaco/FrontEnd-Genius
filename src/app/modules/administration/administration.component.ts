@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { SideMenuService } from '@services/side-menu.service';
 
 @Component({
   selector: 'app-administration',
@@ -7,32 +8,36 @@ import { Component } from '@angular/core';
 })
 export class AdministrationComponent {
 
-  isExpanded = true
+  private sideMenuService = inject(SideMenuService)
+
+  //isExpanded = true
   isExpandedSubmenu = false
+
+  isExpanded = this.sideMenuService.isExpanded
 
   Menus = [
     {title: "Regresar al POS"},
     {title: "Reportes", icon: 'fa-regular fa-file-lines'},
-    {title: "Empleados", spacing: true, icon: 'fa-regular fa-image'},
+    {title: "Empleados", spacing: true, icon: 'fa-solid fa-users-gear'},
     {
       title: "Productos",
-      icon: 'fa-regular fa-folder-open',
+      icon: 'fa-solid fa-burger',
       submenu: true,
       submenuItems: [
-        {title: "Submenu 1"},
-        {title: "Submenu 2"},
-        {title: "Submenu 3"}
+        {title: "Categorias", path: "/administration/categories"},
+        {title: "Grupos", path: "/groups"},
+        {title: "Items", path: "/items"}
       ],
     },
-    {title: "Analytics", icon: 'fa-solid fa-chart-simple'},
-    {title: "Inventario", icon: 'fa-solid fa-inbox'},
+    {title: "Estadisticas", icon: 'fa-solid fa-chart-simple'},
+    {title: "Inventario", icon: 'fa-solid fa-truck-ramp-box'},
     {title: "Información fiscal", spacing: true, icon: 'fa-regular fa-user'},
     {title: "Configuraciones", icon: 'fa-solid fa-gear'},
     {title: "Cerrar sesión", icon: 'fa-solid fa-right-from-bracket'}
   ]
 
   toggleMenu() {
-    this.isExpanded = !this.isExpanded
+    this.sideMenuService.toggleAside()
   }
 
   toggleSubmenu () {

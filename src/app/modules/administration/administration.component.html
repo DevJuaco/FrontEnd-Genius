@@ -1,11 +1,11 @@
-<div class="flex">
-    <div class="bg-dark-purple h-screen p-5 pt-8 relative duration-300" 
-        [ngClass]="{'w-72': isExpanded, 'w-20': !isExpanded }"
+<div class="flex relative">
+    <div class="bg-purple-950 h-full p-5 pt-8 fixed duration-300" 
+        [ngClass]="{'w-72': isExpanded(), 'w-20': !isExpanded() }"
     >
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
             class="h-6 w-6 bg-white text-dark-purple p-1.5 rounded-full absolute -right-3 top-9 border border-dark-purple cursor-pointer"
-            [ngClass]="{'rotate-180': !isExpanded}"
+            [ngClass]="{'rotate-180': !isExpanded()}"
             (click)="toggleMenu()"
             viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/>
         </svg>
@@ -14,7 +14,7 @@
             <i class="fa-solid fa-brain bg-cyan-300 text-3xl p-0.5 rounded cursor-pointer block float-left mr-4"></i>
             <h1 
                 class="text-white origin-left font-medium text-2xl duration-300"
-                [ngClass]="{'scale-0': !isExpanded}"
+                [ngClass]="{'scale-0': !isExpanded()}"
             >
                 GENIUS POS
             </h1>
@@ -31,11 +31,11 @@
                     </span>
                     <span 
                         class="text-base font-medium flex-1 duration-200"
-                        [ngClass]="{'hidden': !isExpanded}"
+                        [ngClass]="{'hidden': !isExpanded()}"
                     >{{item.title}}
                     </span>
 
-                    @if (item.submenu && isExpanded) {
+                    @if (item.submenu && isExpanded()) {
                         <button 
                             [ngClass]="{'rotate-180': !isExpandedSubmenu}" 
                             (click)="toggleSubmenu()"
@@ -45,11 +45,11 @@
                     }
                 </li>
 
-                @if (item.submenu && isExpandedSubmenu && isExpanded ) {
+                @if (item.submenu && isExpandedSubmenu && isExpanded() ) {
                     <ul>
                         @for (submenuItem of item.submenuItems; track submenuItem.title) {
                             <li class="text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 px-5 hover:bg-light-white rounded-md">
-                                {{submenuItem.title}}
+                                <a routerLink="{{submenuItem.path}}">{{submenuItem.title}}</a>
                             </li>
                         }
                     </ul>
@@ -57,5 +57,5 @@
             }
         </ul>
     </div>
-    <div class="p-7"><h1 class="text-2xl font-semibold">Home Page</h1></div>
+    <router-outlet></router-outlet>
 </div>

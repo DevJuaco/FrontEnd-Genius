@@ -1,0 +1,77 @@
+<div class="duration-300" [ngClass]="{'ml-72': isExpanded(), 'ml-20': !isExpanded()}">
+    <h2 class="border-b-2 text-2xl font-bold border-blue-500 w-full p-4">CATEGORIAS</h2>
+    <div class="p-5 flex flex-wrap gap-4">
+        @for (category of categories(); track category.idCategory) {
+        <div class="basis-full p-6 rounded-lg bg-purple-100 text-center md:basis-12 lg:basis-12">
+            <a href="#">
+                <h5 class="mb-2 text-xl font-semibold tracking-tight text-purple-950">{{category.name}}</h5>
+            </a>
+            <div class="flex gap-2 justify-center">
+                <a href="#"
+                    class="inline-flex items-center px-3 py-2 text-xs font-medium text-center text-white rounded-lg focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700">
+                    Editar
+                    <i class="fa-solid fa-pen-to-square ml-2"></i>
+                </a>
+
+                <a href="#"
+                    class="inline-flex items-center px-3 py-2 text-xs font-medium text-center text-white rounded-lg focus:outline-none dark:bg-gray-500 dark:hover:bg-gray-600">
+                    Ocultar
+                    <i class="fa-solid fa-eye-slash ml-2"></i>
+                </a>
+            </div>
+        </div>
+        }
+    </div>
+
+    <div data-dial-init class="fixed end-6 bottom-6 group" (click)="openModal()">
+        <button type="button" data-dial-toggle="speed-dial-menu-square" aria-controls="speed-dial-menu-square"
+            aria-expanded="false"
+            class="flex items-center justify-center text-white rounded-lg w-14 h-14 dark:bg-blue-600 dark:hover:bg-blue-700 focus:ring-4 focus:outline-none dark:focus:ring-blue-800">
+            <svg class="w-5 h-5 transition-transform group-hover:rotate-45" aria-hidden="true"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 1v16M1 9h16" />
+            </svg>
+        </button>
+    </div>
+
+    @if (isVisible) {
+    <div class="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm flex justify-center items-center">
+        <div class="w-[330px] flex flex-col md:w-[600px] lg:w-[600px]">
+            <button class="place-self-end" (click)="openModal()"><i class="fa-solid fa-rectangle-xmark text-xl text-blue-700"></i></button>
+            <form 
+                class="p-4 bg-purple-50 md:p-5 rounded-lg"
+                [formGroup]="categoryForm"
+                (ngSubmit)="createCategory()"
+                autocomplete="off"
+            >
+                <div class="grid gap-4 mb-4 grid-cols-2">
+                    <div class="col-span-2">
+                        <label for="name"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-black">Nueva categoria</label>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            id="name"
+                            formControlName="name"
+                            class="text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-purple-200 dark:text-black"
+                            placeholder="Nombre de la categoria" required=""
+                        >
+                    </div>
+                </div>
+                <button type="submit"
+                    class="text-white inline-flex items-center focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    Crear
+                </button>
+            </form>
+        </div>
+    </div>
+    }
+
+</div>

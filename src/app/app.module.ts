@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 
 import { routes } from './app-routing.module'
 import { PreloadAllModules, provideRouter, withComponentInputBinding, withPreloading } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { PreloadAllModules, provideRouter, withComponentInputBinding, withPreloa
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
     provideRouter(routes, withComponentInputBinding(), withPreloading(PreloadAllModules))
